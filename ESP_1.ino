@@ -1,11 +1,22 @@
-// #include<EthernetClient.h> //Uncomment this library to work with ESP8266
-#include<ESP8266WiFi.h> //Uncomment this library to work with ESP8266
+//ESP connection to send data to local ESP server
+
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+
+const char* ssid = "DataTransfer";
+const char* password = "BelovSer";//"DataTransfer", "Belov"
+const String  Devicename = "4";//device name for ESP at bathroom
 char jsonBuffer[2000] = "["; // Initialize the jsonBuffer to hold data
 
-char ssid[] = "Keenetic-4574"; //  Your network SSID (name)
-char pass[] = "Gfmsd45kaxu69$"; // Your network password
-WiFiClient client; // Initialize the WiFi client library
-char server[] = "api.thingspeak.com"; // ThingSpeak Server
+  // WIFI Module Role & Port
+IPAddress     TCP_Server(192, 168, 4, 1);
+IPAddress     TCP_Gateway(192, 168, 4, 1);
+IPAddress     TCP_Subnet(255, 255, 255, 0);
+IPAddress Own(192, 168, 4, 102);
+unsigned int  TCPPort = 2390;
+
+WiFiClient    TCP_Client;
+
 
 /* Collect data once every 15 seconds and post data to ThingSpeak channel once every 2 minutes */
 // unsigned long lastConnectionTime = 0; // Track the last connection time
@@ -18,108 +29,117 @@ int row; //for data read from serial
 
 
 void setup() {
- Serial.begin(9600);
-  // Attempt to connect to WiFi network
-  WiFi.mode(WIFI_STA);
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print("Attempting to connect to SSID: ");
-    Serial.println(ssid);
-    WiFi.begin(ssid, pass); 
-    Serial.print("WiFimode is "); Serial.println (WiFi.getMode());// Connect to WPA/WPA2 network. Change this line if using open or WEP network
-    delay(10000);  // Wait 10 seconds to connect
-  }
-  Serial.println("Connected to wifi");
- printWiFiStatus(); // Print WiFi connection information
+	Serial.begin(115200);
+	WiFi.hostname("ESP_Bathroom");      // DHCP Hostname (useful for finding device for static lease)
+	WiFi.config(Own, TCP_Gateway, TCP_Subnet);
+	Check_WiFi_and_Connect_or_Reconnect();          // Checking For Connection
+	//WiFiClient::setLocalPortStart(2391);
 }
 void loop() {
     if (millis() - lastUpdateTime >=  postingInterval) 
     { 
     readDataSerial(row);
-    if (row>0) {updatesJson(jsonBuffer,row);row=0; memset(getData,0,sizeof(getData));}
+    if (row>0) { Send_Request_To_Server();row=0; memset(getData,0,sizeof(getData));}
     }
   }
     
-void printWiFiStatus() {
-  // Print the SSID of the network you're attached to:
-   
-  Serial.print("SSID: ");
-  Serial.println(WiFi.SSID());
+void Send_Request_To_Server() {
+	unsigned long tNow;
+	delay(1000);
+	tNow = millis();
+	if (TCP_Client.connected()) {
+		TCP_Client.setNoDelay(1);
+		String dataToSend = "Device:" + Devicename + ";" + "time:" + String(tNow) + ";" +
+			"signal:" + String(WiFi.RSSI()) + "temp:" + getData[0][0] + ";"
+			+ "humid" + getData[0][1] + ";" + "humidAv:" + getData[0][2] + ";" +
+			"status:" + getData[0][3] + ";" + ";";
+		TCP_Client.println(dataToSend);
+		Serial.print("- data stream: ");	Serial.println(dataToSend);//Send sensor data
 
-  // Print your device IP address:
-  IPAddress ip = WiFi.localIP();
-  Serial.print("IP Address: ");
-  Serial.println(ip);
- long rssi = WiFi.RSSI();
- Serial.print("signal strength (RSSI):");
- Serial.print(rssi);
- Serial.println(" dBm");
-  Serial.print("WiFimode is "); Serial.println (WiFi.getMode());
+
+	}
+	
 }
 
-void updatesJson(char* jsonBuffer,int row){
-  //   "[{\"delta_t\":0,\"field1\":-70},{\"delta_t\":3,\"field1\":-66}]"
-  int i; int ii;
-  char field[8][2]={"1","2","3","4","5","6","7","8"};
-  for (i=0;i<row;i++)
-  {strcat(jsonBuffer,"{\"delta_t\":");
-   strcat(jsonBuffer,getData[i][0]);
-   strcat(jsonBuffer,",");
-   for (ii=1;ii<5;ii++)
-      {
-       strcat(jsonBuffer, "\"field");
-       strcat(jsonBuffer,field[ii-1]);
-       strcat(jsonBuffer,"\":");
-       strcat(jsonBuffer,getData[i][ii]);
-      if (ii!=4) strcat(jsonBuffer,",");
-      }
-       strcat(jsonBuffer,"},");
-       // If posting interval time has reached 2 minutes, update the ThingSpeak channel with your data
-  }
-        size_t len = strlen(jsonBuffer);
-        jsonBuffer[len-1] = ']';
-        httpRequest(jsonBuffer);
+//====================================================================================
+
+void Check_WiFi_and_Connect_or_Reconnect() {
+	if (WiFi.status() != WL_CONNECTED) {
+
+		TCP_Client.stop();                                  //Make Sure Everything Is Reset
+		WiFi.disconnect();
+		Serial.println("Not Connected...trying to connect...");
+		delay(50);
+		WiFi.mode(WIFI_STA);                                // station (Client) Only - to avoid broadcasting an SSID ??
+		//WiFi.begin(ssid, password,0);                    // the SSID that we want to connect to
+		WiFi.begin(ssid, password);
+		Serial.println("ssid: " + String(ssid) + "  password:" + String(password));
+		for (int i = 0; i < 10; ++i) {
+			if (WiFi.status() != WL_CONNECTED) {
+				delay(500);
+				Serial.print(".");
+			}
+			else {
+
+				// Printing IP Address --------------------------------------------------
+				Serial.println("Connected To      : " + String(WiFi.SSID()));
+				Serial.println("Signal Strenght   : " + String(WiFi.RSSI()) + " dBm");
+				Serial.print("Server IP Address : ");
+				Serial.println(TCP_Server);
+				Serial.print("Device IP Address : ");
+				Serial.println(WiFi.localIP());
+
+				// conecting as a client -------------------------------------
+				Tell_Server_we_are_there();
+				break;
+			}
+
+		}
+	}
+}
+
+//====================================================================================
+
+void Tell_Server_we_are_there() {
+	// first make sure you got disconnected
+	//TCP_Client.stop();
+
+	// if sucessfully connected send connection message
+	if (TCP_Client.connect(TCP_Server, TCPPort)) {
+		Serial.println("<" + Devicename + "-CONNECTED>");
+		TCP_Client.println("<" + Devicename + "-CONNECTED>");
+	}
+	TCP_Client.setNoDelay(1);                                     // allow fast communication?
+}
+
+//====================================================================================
+
+void loop() {
+	//WiFiClient::setLocalPortStart(2391);
+	Check_WiFi_and_Connect_or_Reconnect();          // Checking For Connection
+	Send_Request_To_Server();
+
+
+	yield();
+	//while (tNow2 > (millis() - 50)) {
+	if (TCP_Client.connected()) {
+
+		if (TCP_Client.available() > 0) {                     // Check For Reply
+			String line = TCP_Client.readStringUntil('\r');     // if '\r' is found
+			Serial.print("received: ");                         // print the content
+			Serial.println(line);
+			
+		}
+	}
+	else Tell_Server_we_are_there();
+	//	}
+}
+
   
-  lastUpdateTime = millis(); // Update the last update time
-}
+  //jsonBuffer[0] = '['; //Reinitialize the jsonBuffer for next batch of data
+  //jsonBuffer[1] = '\0';
+ 
 
-// Updates the ThingSpeakchannel with data
-void httpRequest(char* jsonBuffer) {
-  /* JSON format for data buffer in the API
-   *  This examples uses the relative timestamp as it uses the "delta_t". You can also provide the absolute timestamp using the "created_at" parameter
-   *  instead of "delta_t".
-   *   "{\"write_api_key\":\"YOUR-CHANNEL-WRITEAPIKEY\",\"updates\":[{\"delta_t\":0,\"field1\":-60},{\"delta_t\":15,\"field1\":200},{\"delta_t\":15,\"field1\":-66}]
-   */
-  // Format the data buffer as noted above
-  char data[2000] = "{\"write_api_key\":\"SR7I86O66JT1ZIQQ\",\"updates\":"; // Replace YOUR-CHANNEL-WRITEAPIKEY with your ThingSpeak channel write API key
-  strcat(data,jsonBuffer);
-  strcat(data,"}");
-  // Close any connection before sending a new request
-  client.stop();
-  String data_length = String(strlen(data)+1); //Compute the data buffer length
-  // Serial.println(data);
-  // POST data to ThingSpeak
-  if (client.connect(server, 80)) {
-    client.println("POST /channels/692244/bulk_update.json HTTP/1.1"); // Replace YOUR-CHANNEL-ID with your ThingSpeak channel ID
-    client.println("Host: api.thingspeak.com");
-    client.println("User-Agent: mw.doc.bulk-update (Arduino ESP8266)");
-    client.println("Connection: close");
-    client.println("Content-Type: application/json");
-    client.println("Content-Length: "+data_length);
-    client.println();
-    client.println(data);
-  }
-  else {
-    Serial.println("Failure: Failed to connect to ThingSpeak");
-  }
-  delay(250); //Wait to receive the response
-  client.parseFloat();
-  String resp = String(client.parseInt());
- Serial.print("R:"+resp); // Print the response code. 202 indicates that the server has accepted the response
-  // Serial.println(data);
-  jsonBuffer[0] = '['; //Reinitialize the jsonBuffer for next batch of data
-  jsonBuffer[1] = '\0';
-  //lastConnectionTime = millis(); //Update the last conenction time
-}
 void readDataSerial(int& rowRead)
 { if (Serial.available()){
   int column; 
@@ -130,7 +150,8 @@ void readDataSerial(int& rowRead)
   int i=0;
   while (Serial.available()){
     ch = Serial.read();
-    delay (2);
+	yield();
+   // delay (2);
     if(ch=='{') {start=true;column=0;entry=0;} 
     else if (start==true)
     {
