@@ -12,7 +12,7 @@ char jsonBuffer[2000] = "["; // Initialize the jsonBuffer to hold data
 IPAddress     TCP_Server(192, 168, 4, 1);
 IPAddress     TCP_Gateway(192, 168, 4, 1);
 IPAddress     TCP_Subnet(255, 255, 255, 0);
-IPAddress Own(192, 168, 4, 102);
+IPAddress Own(192, 168, 4, 104);
 unsigned int  TCPPort = 2390;
 
 WiFiClient    TCP_Client;
