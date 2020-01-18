@@ -6,7 +6,6 @@
 const char* ssid = "DataTransfer";
 const char* password = "BelovSer";//"DataTransfer", "Belov"
 const String  Devicename = "4";//device name for ESP at bathroom
-char jsonBuffer[2000] = "["; // Initialize the jsonBuffer to hold data
 
   // WIFI Module Role & Port
 IPAddress     TCP_Server(192, 168, 4, 1);
@@ -29,19 +28,13 @@ int row; //for data read from serial
 
 
 void setup() {
-	Serial.begin(115200);
+	Serial.begin(9600);
 	WiFi.hostname("ESP_Bathroom");      // DHCP Hostname (useful for finding device for static lease)
 	WiFi.config(Own, TCP_Gateway, TCP_Subnet);
 	Check_WiFi_and_Connect_or_Reconnect();          // Checking For Connection
 	//WiFiClient::setLocalPortStart(2391);
 }
-void loop() {
-    if (millis() - lastUpdateTime >=  postingInterval) 
-    { 
-    readDataSerial(row);
-    if (row>0) { Send_Request_To_Server();row=0; memset(getData,0,sizeof(getData));}
-    }
-  }
+
     
 void Send_Request_To_Server() {
 	unsigned long tNow;
@@ -50,9 +43,9 @@ void Send_Request_To_Server() {
 	if (TCP_Client.connected()) {
 		TCP_Client.setNoDelay(1);
 		String dataToSend = "Device:" + Devicename + ";" + "time:" + String(tNow) + ";" +
-			"signal:" + String(WiFi.RSSI()) + "temp:" + getData[0][0] + ";"
-			+ "humid" + getData[0][1] + ";" + "humidAv:" + getData[0][2] + ";" +
-			"status:" + getData[0][3] + ";" + ";";
+			"signal:" + String(WiFi.RSSI()) + ";" + "temp:" + getData[0][1] + ";"
+			+ "humid:" + getData[0][2] + ";" + "humidAv:" + getData[0][3] + ";" +
+			"status:" + getData[0][4] + ";" ;
 		TCP_Client.println(dataToSend);
 		Serial.print("- data stream: ");	Serial.println(dataToSend);//Send sensor data
 
@@ -115,10 +108,15 @@ void Tell_Server_we_are_there() {
 //====================================================================================
 
 void loop() {
+	
 	//WiFiClient::setLocalPortStart(2391);
 	Check_WiFi_and_Connect_or_Reconnect();          // Checking For Connection
-	Send_Request_To_Server();
-
+	//Send_Request_To_Server();
+if (millis() - lastUpdateTime >= postingInterval)
+	{
+		readDataSerial(row);
+		if (row > 0) { Send_Request_To_Server(); row = 0; memset(getData, 0, sizeof(getData)); }
+	}
 
 	yield();
 	//while (tNow2 > (millis() - 50)) {
@@ -150,8 +148,8 @@ void readDataSerial(int& rowRead)
   int i=0;
   while (Serial.available()){
     ch = Serial.read();
-	yield();
-   // delay (2);
+	//yield();
+    delay (2);
     if(ch=='{') {start=true;column=0;entry=0;} 
     else if (start==true)
     {
