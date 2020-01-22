@@ -15,7 +15,9 @@ IPAddress Own(192, 168, 4, 104);
 unsigned int  TCPPort = 2390;
 
 WiFiClient    TCP_Client;
-
+bool connectionTried = false;
+bool  connectionEstablished = false;
+unsigned long timeConnectioTried, timeAttemptToConnect, checkconnection;
 
 /* Collect data once every 15 seconds and post data to ThingSpeak channel once every 2 minutes */
 // unsigned long lastConnectionTime = 0; // Track the last connection time
@@ -31,7 +33,7 @@ void setup() {
 	Serial.begin(9600);
 	WiFi.hostname("ESP_Bathroom");      // DHCP Hostname (useful for finding device for static lease)
 	WiFi.config(Own, TCP_Gateway, TCP_Subnet);
-	Check_WiFi_and_Connect_or_Reconnect();          // Checking For Connection
+	//Check_WiFi_and_Connect_or_Reconnect();          // Checking For Connection
 	//WiFiClient::setLocalPortStart(2391);
 }
 
@@ -56,23 +58,23 @@ void Send_Request_To_Server() {
 
 //====================================================================================
 
-void Check_WiFi_and_Connect_or_Reconnect() {
-	if (WiFi.status() != WL_CONNECTED) {
-
-		TCP_Client.stop();                                  //Make Sure Everything Is Reset
-		WiFi.disconnect();
-		Serial.println("Not Connected...trying to connect...");
-		delay(50);
+void Check_WiFi_and_Connect() {
+			//Serial.println("Not Connected...trying to connect...");
+		yield();
 		WiFi.mode(WIFI_STA);                                // station (Client) Only - to avoid broadcasting an SSID ??
 		//WiFi.begin(ssid, password,0);                    // the SSID that we want to connect to
 		WiFi.begin(ssid, password);
 		Serial.println("ssid: " + String(ssid) + "  password:" + String(password));
-		for (int i = 0; i < 10; ++i) {
+	}
+
+
+		/*for (int i = 0; i < 10; ++i) {
 			if (WiFi.status() != WL_CONNECTED) {
-				delay(500);
-				Serial.print(".");
-			}
-			else {
+				//delay(500);
+				//Serial.print(".");
+			}*/
+
+void Print_connection_status(){
 
 				// Printing IP Address --------------------------------------------------
 				Serial.println("Connected To      : " + String(WiFi.SSID()));
@@ -84,11 +86,15 @@ void Check_WiFi_and_Connect_or_Reconnect() {
 
 				// conecting as a client -------------------------------------
 				Tell_Server_we_are_there();
-				break;
-			}
-
-		}
-	}
+				
+				
+		/*delay(1000);
+		yield();
+		if (WiFi.status() == WL_CONNECTED) {
+			Serial.println("ssid: " + String(ssid) + "  password:" + String(password));
+			Tell_Server_we_are_there();
+		}*/
+	
 }
 
 //====================================================================================
@@ -110,8 +116,37 @@ void Tell_Server_we_are_there() {
 void loop() {
 
 	//WiFiClient::setLocalPortStart(2391);
-	Check_WiFi_and_Connect_or_Reconnect();          // Checking For Connection
-	//Send_Request_To_Server();
+	if (WiFi.status() != WL_CONNECTED && ((millis() - checkconnection) > 10000)) {
+		connectionEstablished = false;
+		checkconnection=millis();
+	}
+	if (!connectionEstablished&&((millis()- timeConnectioTried)>10000)) {
+		yield();
+		if (WiFi.status() != WL_CONNECTED){
+			if (!connectionTried)
+			{
+				Check_WiFi_and_Connect();
+				connectionTried = true;
+				timeAttemptToConnect = millis();
+			}
+		}
+		else {
+			Print_connection_status();
+			connectionTried = false;
+			connectionEstablished = true;
+		}
+		timeConnectioTried = millis();
+	}
+
+	if (!connectionEstablished && ((millis() - timeAttemptToConnect) > 60000))
+	{
+		connectionTried = false;
+		TCP_Client.stop();                                  //Make Sure Everything Is Reset
+		WiFi.disconnect();
+		timeAttemptToConnect = millis();
+	}
+	
+
 	if (millis() - lastUpdateTime >= postingInterval)
 	{
 		readDataSerial(row);
@@ -129,7 +164,7 @@ void loop() {
 
 		}
 	}
-	else Tell_Server_we_are_there();
+	//else Tell_Server_we_are_there();
 	//	}
 	
 	
