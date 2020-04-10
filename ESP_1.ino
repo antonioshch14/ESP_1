@@ -13,6 +13,34 @@ IPAddress     TCP_Gateway(192, 168, 4, 1);
 IPAddress     TCP_Subnet(255, 255, 255, 0);
 IPAddress Own(192, 168, 4, 104);
 unsigned int  TCPPort = 2390;
+class task {
+public:
+	unsigned long period;
+	bool ignor = false;
+	void reLoop() {
+		taskLoop = millis();
+	};
+	bool check() {
+		if (!ignor) {
+			if (millis() - taskLoop > period) {
+				taskLoop = millis();
+				return true;
+			}
+		}
+		return false;
+	}
+	void StartLoop(unsigned long shift) {
+		taskLoop = millis() + shift;
+	}
+	task(unsigned long t) {
+		period = t;
+	}
+private:
+	unsigned long taskLoop;
+
+};
+task sendRequestToServer(10000);
+String fieldsInLogMes = "Device:4;get:3;Time general,Time device,Signal,Temp,Humid, HumidAver,Status;";
 
 WiFiClient    TCP_Client;
 bool connectionTried = false;
@@ -40,7 +68,6 @@ void setup() {
     
 void Send_Request_To_Server() {
 	unsigned long tNow;
-	delay(1000);
 	tNow = millis();
 	if (TCP_Client.connected()) {
 		TCP_Client.setNoDelay(1);
@@ -50,12 +77,22 @@ void Send_Request_To_Server() {
 			"status:" + getData[0][4] + ";" ;
 		TCP_Client.println(dataToSend);
 		//Serial.print("- data stream: ");	Serial.println(dataToSend);//Send sensor data
-
+		sendRequestToServer.period = 30000;
 
 	}
 	
 }
+void Send_Log_To_Server() {
 
+	if (TCP_Client.connected()) {
+		TCP_Client.setNoDelay(1);
+		TCP_Client.println("Device:" + Devicename + ";get:2;" + String(millis()) + "," +
+			String(WiFi.RSSI()) + "," + getData[0][1] + ","
+			+ getData[0][2] + "," +  getData[0][3] + "," + getData[0][4] + ";");
+
+	}
+
+}
 //====================================================================================
 
 void Check_WiFi_and_Connect() {
@@ -77,7 +114,7 @@ void Check_WiFi_and_Connect() {
 void Print_connection_status(){
 
 				// Printing IP Address --------------------------------------------------
-				Serial.println("Connected To      : " + String(WiFi.SSID()));
+			/*	Serial.println("Connected To      : " + String(WiFi.SSID()));
 				Serial.println("Signal Strenght   : " + String(WiFi.RSSI()) + " dBm");
 				Serial.print("Server IP Address : ");
 				Serial.println(TCP_Server);
@@ -85,6 +122,7 @@ void Print_connection_status(){
 				Serial.println(WiFi.localIP());
 
 				// conecting as a client -------------------------------------
+				*/
 				Tell_Server_we_are_there();
 				
 				
@@ -105,8 +143,9 @@ void Tell_Server_we_are_there() {
 
 	// if sucessfully connected send connection message
 	if (TCP_Client.connect(TCP_Server, TCPPort)) {
-		Serial.println("<" + Devicename + "-CONNECTED>");
+		//Serial.println("<" + Devicename + "-CONNECTED>");
 		TCP_Client.println("<" + Devicename + "-CONNECTED>");
+		TCP_Client.println(fieldsInLogMes);
 	}
 	TCP_Client.setNoDelay(1);                                     // allow fast communication?
 }
@@ -150,9 +189,10 @@ void loop() {
 	if (millis() - lastUpdateTime >= postingInterval)
 	{
 		readDataSerial(row);
-		if (row > 0) { Send_Request_To_Server(); row = 0; memset(getData, 0, sizeof(getData)); }
+		if (row > 0) {
+			Send_Log_To_Server(); row = 0; //memset(getData, 0, sizeof(getData)); }
+		}
 	}
-
 	yield();
 	//while (tNow2 > (millis() - 50)) {
 	if (TCP_Client.connected()) {
@@ -164,21 +204,7 @@ void loop() {
 
 		}
 	}
-	//else Tell_Server_we_are_there();
-	//	}
-	
-	
-			/*unsigned long value;
-			int index;
-			int humid;
-			if (get_field_value(message, "humid:", &value, &index)) {
-				humid = value / pow(10, index);
-				Serial.print("Humid recognised: ");                         // print the content
-				Serial.println(humid);
-			}*/
-		
-
-
+	if (sendRequestToServer.check()) Send_Request_To_Server();
 }
 bool get_field_value(String Message, String field, unsigned long* value, int* index) {
 	int fieldBegin = Message.indexOf(field) + field.length();
