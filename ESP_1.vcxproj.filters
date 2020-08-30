@@ -14,438 +14,435 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="src">
-      <UniqueIdentifier>{54e4d51a-636e-40a2-bc30-88be1ddc61d3}</UniqueIdentifier>
+      <UniqueIdentifier>{353ee9dc-5111-4dab-89ad-1f3bcada58b2}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\_micro-api-readonly">
-      <UniqueIdentifier>{be4a6ffb-1719-427b-9b77-343e012af588}</UniqueIdentifier>
+      <UniqueIdentifier>{e7931eab-aa65-428e-8dc2-551a01e300ac}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\_micro-api-readonly\core">
-      <UniqueIdentifier>{92a5a4a8-4441-4c75-957f-988b72243ca3}</UniqueIdentifier>
+      <UniqueIdentifier>{17c5a625-707b-475e-ad40-235c0115c460}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\_micro-api-readonly\core\avr">
-      <UniqueIdentifier>{bcd9fa85-492b-4ea2-9e73-abd246e2962f}</UniqueIdentifier>
+      <UniqueIdentifier>{fc34942c-3ac0-42d8-9d5b-6f86611fd139}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\_micro-api-readonly\core\libb64">
-      <UniqueIdentifier>{980c2de7-2bdd-4c0c-a960-d02c562e3180}</UniqueIdentifier>
+      <UniqueIdentifier>{f4710190-ea03-40e8-8ea3-be97ff3b0c65}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\_micro-api-readonly\core\spiffs">
-      <UniqueIdentifier>{11f4fbd4-b538-4313-b958-bb9b54ac076c}</UniqueIdentifier>
+      <UniqueIdentifier>{b01cb04b-f3ac-4829-a8af-5d3137f843d0}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\_micro-api-readonly\core\umm_malloc">
-      <UniqueIdentifier>{39f0cfa1-7355-4b1e-aeea-0f68b664e4d8}</UniqueIdentifier>
+      <UniqueIdentifier>{2611a570-abe6-489a-b32a-bfce64574a12}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\_micro-api-readonly\core\umm_malloc\dbglog">
-      <UniqueIdentifier>{63f3bfb8-4cec-41d9-bff1-eee39b18d1cc}</UniqueIdentifier>
+      <UniqueIdentifier>{f36f6b96-d8ee-46d5-87c5-e0994379972b}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\_micro-api-readonly\libraries">
-      <UniqueIdentifier>{935d1ea6-a79c-4ad5-bc70-e5ae61395880}</UniqueIdentifier>
+      <UniqueIdentifier>{dbed69ee-d536-4742-b7c1-ebee4ca2e428}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ESP_1.ino" />
-    <None Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\cont.S">
+    <None Include="packages.config" />
+    <None Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\cont.S">
       <Filter>src\_micro-api-readonly\core</Filter>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.ESP_1.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\AddrList.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\AddrList.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Arduino.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Arduino.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\base64.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\base64.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\binary.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\binary.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\CallBackList.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\CallBackList.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\cbuf.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\cbuf.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Client.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Client.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\cont.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\cont.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\coredecls.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\coredecls.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_features.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_features.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_version.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_version.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_waveform.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_waveform.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_version.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_version.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\debug.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\debug.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\eboot_command.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\eboot_command.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Esp.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Esp.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\esp8266_peri.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\esp8266_peri.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\esp8266_undocumented.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\esp8266_undocumented.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\flash_hal.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\flash_hal.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\flash_utils.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\flash_utils.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FS.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FS.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FSImpl.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FSImpl.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FunctionalInterrupt.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FunctionalInterrupt.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\gdb_hooks.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\gdb_hooks.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\HardwareSerial.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\HardwareSerial.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\i2s.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\i2s.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\interrupts.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\interrupts.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\IPAddress.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\IPAddress.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\md5.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\md5.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\MD5Builder.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\MD5Builder.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\pgmspace.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\pgmspace.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\PolledTimeout.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\PolledTimeout.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Print.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Print.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Printable.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Printable.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Schedule.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Schedule.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Server.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Server.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\sigma_delta.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\sigma_delta.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\sntp-lwip2.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\sntp-lwip2.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs_api.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs_api.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spi_utils.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spi_utils.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\StackThunk.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\StackThunk.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\stdlib_noniso.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\stdlib_noniso.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Stream.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Stream.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\StreamString.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\StreamString.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\twi.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\twi.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\twi_util.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\twi_util.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\TZ.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\TZ.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\uart.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\uart.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Udp.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Udp.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Updater.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Updater.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Updater_Signing.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Updater_Signing.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\user_config.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\user_config.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\WCharacter.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\WCharacter.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\wiring_private.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\wiring_private.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\WString.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\WString.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\avr\dtostrf.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\avr\dtostrf.h">
       <Filter>src\_micro-api-readonly\core\avr</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\avr\pgmspace.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\avr\pgmspace.h">
       <Filter>src\_micro-api-readonly\core\avr</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\libb64\cdecode.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\libb64\cdecode.h">
       <Filter>src\_micro-api-readonly\core\libb64</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\libb64\cencode.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\libb64\cencode.h">
       <Filter>src\_micro-api-readonly\core\libb64</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs.h">
       <Filter>src\_micro-api-readonly\core\spiffs</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_config.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_config.h">
       <Filter>src\_micro-api-readonly\core\spiffs</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_nucleus.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_nucleus.h">
       <Filter>src\_micro-api-readonly\core\spiffs</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\Notes.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\Notes.h">
       <Filter>src\_micro-api-readonly\core\umm_malloc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\umm_local.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\umm_local.h">
       <Filter>src\_micro-api-readonly\core\umm_malloc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\umm_malloc.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\umm_malloc.h">
       <Filter>src\_micro-api-readonly\core\umm_malloc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\umm_malloc_cfg.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\umm_malloc_cfg.h">
       <Filter>src\_micro-api-readonly\core\umm_malloc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\dbglog\dbglog.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\dbglog\dbglog.h">
       <Filter>src\_micro-api-readonly\core\umm_malloc\dbglog</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\variants\esp8285\common.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\variants\generic\common.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\variants\esp8285\pins_arduino.h">
+    <ClInclude Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\variants\generic\pins_arduino.h">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\abi.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\abi.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\base64.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\base64.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\cbuf.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\cbuf.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\cont_util.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\cont_util.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_app_entry_noextra4k.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_app_entry_noextra4k.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_eboot_command.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_eboot_command.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_features.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_features.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_flash_utils.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_flash_utils.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_i2s.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_i2s.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_main.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_main.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_noniso.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_noniso.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_phy.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_phy.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_postmortem.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_postmortem.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_si2c.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_si2c.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_sigma_delta.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_sigma_delta.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_spi_utils.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_spi_utils.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_timer.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_timer.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_waveform.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_waveform.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring_analog.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring_analog.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring_digital.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring_digital.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring_pulse.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring_pulse.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring_pwm.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring_pwm.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring_shift.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\core_esp8266_wiring_shift.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\crc32.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\crc32.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\debug.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\debug.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Esp-frag.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Esp-frag.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Esp-version.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Esp-version.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Esp.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Esp.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\flash_hal.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\flash_hal.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FS.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FS.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FSnoop.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FSnoop.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FunctionalInterrupt.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\FunctionalInterrupt.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\gdb_hooks.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\gdb_hooks.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\HardwareSerial.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\HardwareSerial.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\heap.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\heap.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\IPAddress.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\IPAddress.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\libc_replacements.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\libc_replacements.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\MD5Builder.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\MD5Builder.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Print.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Print.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Schedule.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Schedule.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\sntp-lwip2.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\sntp-lwip2.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs_api.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs_api.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\sqrt32.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\sqrt32.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\StackThunk.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\StackThunk.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Stream.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Stream.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\StreamString.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\StreamString.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\time.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\time.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Tone.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Tone.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\uart.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\uart.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Updater.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\Updater.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\WMath.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\WMath.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\WString.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\WString.cpp">
       <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\libb64\cdecode.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\libb64\cdecode.cpp">
       <Filter>src\_micro-api-readonly\core\libb64</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\libb64\cencode.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\libb64\cencode.cpp">
       <Filter>src\_micro-api-readonly\core\libb64</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_cache.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_cache.cpp">
       <Filter>src\_micro-api-readonly\core\spiffs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_check.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_check.cpp">
       <Filter>src\_micro-api-readonly\core\spiffs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_gc.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_gc.cpp">
       <Filter>src\_micro-api-readonly\core\spiffs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_hydrogen.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_hydrogen.cpp">
       <Filter>src\_micro-api-readonly\core\spiffs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_nucleus.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\spiffs\spiffs_nucleus.cpp">
       <Filter>src\_micro-api-readonly\core\spiffs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\umm_malloc.cpp">
+    <ClCompile Include="..\..\..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\cores\esp8266\umm_malloc\umm_malloc.cpp">
       <Filter>src\_micro-api-readonly\core\umm_malloc</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Users\z003pr4u\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.6.2\variants\esp8285\initD9D10Pins.cpp">
-      <Filter>src\_micro-api-readonly\core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

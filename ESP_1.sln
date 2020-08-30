@@ -5,16 +5,9 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ESP_1", "ESP_1.vcxproj", "{B8C7CEB5-675E-4F94-9A94-E2359A44B840}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ESP8266WiFi-1.0", "Libraries\ESP8266WiFi\1.0\ESP8266WiFi\ESP8266WiFi-1.0.vcxitems", "{E33E90E7-2885-4260-9F50-67ADD93F0F59}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ESP8266HTTPClient-1.2", "Libraries\ESP8266HTTPClient\1.2\ESP8266HTTPClient\ESP8266HTTPClient-1.2.vcxitems", "{109565DD-9EA9-4D91-9A9D-6DD9A21E2514}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Libraries\ESP8266HTTPClient\1.2\ESP8266HTTPClient\ESP8266HTTPClient-1.2.vcxitems*{109565dd-9ea9-4d91-9a9d-6dd9a21e2514}*SharedItemsImports = 9
-		Libraries\ESP8266HTTPClient\1.2\ESP8266HTTPClient\ESP8266HTTPClient-1.2.vcxitems*{b8c7ceb5-675e-4f94-9a94-e2359a44b840}*SharedItemsImports = 4
-		Libraries\ESP8266WiFi\1.0\ESP8266WiFi\ESP8266WiFi-1.0.vcxitems*{b8c7ceb5-675e-4f94-9a94-e2359a44b840}*SharedItemsImports = 4
-		Libraries\ESP8266WiFi\1.0\ESP8266WiFi\ESP8266WiFi-1.0.vcxitems*{e33e90e7-2885-4260-9f50-67add93f0f59}*SharedItemsImports = 9
+		Libraries\arduinoWebSockets-master\arduinoWebSockets-master.vcxitems*{b8c7ceb5-675e-4f94-9a94-e2359a44b840}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86

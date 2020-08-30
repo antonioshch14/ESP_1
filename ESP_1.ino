@@ -1,18 +1,102 @@
 //ESP connection to send data to local ESP server
 
+#include <WebSocketsServer.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
-
+#include <ESP8266WebServer.h> 
+#include <FS.h>
+//#define LOG(x) Serial.println(x);
+#define LOG(x);
+#define TCPPort_Web_Client 80
+#define TCPPort_Websocket 81
+#define  TCPPort 2390
 const char* ssid = "DataTransfer";
 const char* password = "BelovSer";//"DataTransfer", "Belov"
 const String  Devicename = "4";//device name for ESP at bathroom
-
-  // WIFI Module Role & Port
+const char* web_ssid = "Bathroom";
+const char* web_password = "Belov_628";
+IPAddress WebInt(192, 168, 5, 1);
+IPAddress WebGetaway(192, 168, 5, 1);
+IPAddress WebSubnet(255, 255, 255, 0);
 IPAddress     TCP_Server(192, 168, 4, 1);
 IPAddress     TCP_Gateway(192, 168, 4, 1);
 IPAddress     TCP_Subnet(255, 255, 255, 0);
 IPAddress Own(192, 168, 4, 104);
-unsigned int  TCPPort = 2390;
+
+WiFiClient    TCP_Client;
+WebSocketsServer webSocket = WebSocketsServer(TCPPort_Websocket);
+WiFiServer  TCP_SERVER(TCPPort);
+ESP8266WebServer server(TCPPort_Web_Client);
+struct datatFromUno {
+	float temp;
+	float humid;
+	int humidAwer;
+	byte state;
+
+	void parseInput(String data) {
+		LOG(data)
+		webSocket.broadcastTXT(data);
+		int beginning = data.indexOf('{') + 1;
+		int fullEnd = data.indexOf('}');
+		if (beginning != 0 && fullEnd != 0) {
+			int currentEnd = data.indexOf(',', beginning);
+			String field = data.substring(beginning, currentEnd);
+			temp = field.toFloat();
+			beginning = currentEnd + 1;
+			currentEnd = data.indexOf(',', beginning);
+			field = data.substring(beginning, currentEnd);
+			humid = field.toFloat();
+			beginning = currentEnd + 1;
+			currentEnd = data.indexOf(',', beginning);
+			field = data.substring(beginning, currentEnd);
+			humidAwer = field.toInt();
+			beginning = currentEnd + 1;
+			field = data.substring(beginning, fullEnd);
+			state = getByte(field);
+			/*Serial.println(dataUNO.state, BIN);
+			if (bitRead(dataUNO.state, 0))LOG("deodorantActivated=true")
+			else LOG("deodorantActivated=false")
+			if (bitRead(dataUNO.state, 1))LOG("humanBodyDeteckted=true")
+			else LOG("humanBodyDeteckted=false")
+			if (bitRead(dataUNO.state, 2))LOG("buttonStart=true")
+			else LOG("buttonStart=false")
+			if (bitRead(dataUNO.state, 3))LOG("fanWork=true")
+			else LOG("fanWork=false")
+			if (bitRead(dataUNO.state, 4))LOG("webStart=true")
+			else LOG("webStart=false")
+			if (bitRead(dataUNO.state, 5))LOG("humidStart=true")
+			else LOG("humidStart=false")
+			if (bitRead(dataUNO.state, 6))LOG("coutnFull=true")
+			else LOG("coutnFull=false")
+			if (bitRead(dataUNO.state, 7))LOG("light=true")
+			else LOG("light=false")*/
+		}
+	}
+	private:
+	byte nibble(char c)
+	{
+		if (c >= '0' && c <= '9')
+			return c - '0';
+
+		if (c >= 'a' && c <= 'f')
+			return c - 'a' + 10;
+
+		if (c >= 'A' && c <= 'F')
+			return c - 'A' + 10;
+
+		return 0;  // Not a valid hexadecimal character
+	}
+	byte getByte(String data) {
+		byte state = B00000000;
+		if (data.length() > 1) {
+			state = nibble(data[0]) << 4;
+			state |= nibble(data[1]);
+		}
+		else state |= nibble(data[0]);
+		return state;
+	}
+};
+datatFromUno dataUNO;
 class task {
 public:
 	unsigned long period;
@@ -39,10 +123,13 @@ private:
 	unsigned long taskLoop;
 
 };
-task sendRequestToServer(10000);
+task sendRequestToServer(20000);
+task task_checkConnectionToServer(20000);
+task sendLogToSrver(10000);
+task task_checkClient(5000);
+task task_askHumidFromServer(10000);
 String fieldsInLogMes = "Device:4;get:3;Time general,Time device,Signal,Temp,Humid, HumidAver,Status;";
 
-WiFiClient    TCP_Client;
 bool connectionTried = false;
 bool  connectionEstablished = false;
 unsigned long timeConnectioTried, timeAttemptToConnect, checkconnection;
@@ -52,19 +139,56 @@ unsigned long timeConnectioTried, timeAttemptToConnect, checkconnection;
 unsigned long lastUpdateTime = 0; // Track the last update time
 const unsigned long postingInterval = 5L * 1000L; // s
 // const unsigned long updateInterval = 15L * 1000L; // Update once every 15 seconds
-int const maxRow=10; //for data read from serial
-char getData[maxRow][9][6]; //for data read from serial
-int row; //for data read from serial
-
+#include "web&file_setup.h"
 
 void setup() {
 	Serial.begin(9600);
-	WiFi.hostname("ESP_Bathroom");      // DHCP Hostname (useful for finding device for static lease)
-	WiFi.config(Own, TCP_Gateway, TCP_Subnet);
-	//Check_WiFi_and_Connect_or_Reconnect();          // Checking For Connection
-	//WiFiClient::setLocalPortStart(2391);
+	Serial.println("Begin");
+	//WiFi.hostname("ESP_Bathroom");      // DHCP Hostname (useful for finding device for static lease)
+	//WiFi.config(Own, TCP_Gateway, TCP_Subnet);
+	WiFi.mode(WIFI_AP_STA);//WIFI_STA WIFI_AP_STA 
+	setupWeb();
+	setupClient();
+	//server.on("/", HTTP_GET, handleFileRead);
+	server.onNotFound([]() {                              // If the client requests any URI
+		if (!handleFileRead(server.uri()))                  // send it if it exists
+			server.send(404, "text/plain", "404: Not Found"); // otherwise, respond with a 404 (Not Found) error
+	});
+	server.begin();                           // Actually start the server
+	webSocket.begin();                          // start the websocket server
+	startSPIFFS();
+	webSocket.onEvent(webSocketEvent);          // if there's an incomming websocket message, go to function 'webSocketEvent'
 }
+void webSocketEvent(byte num, WStype_t type, uint8_t * payload, size_t length)
+{
+	if (length) {
+		//char message[16];
+		//message[0] = (char)payload[0];
+		String messageSt;
+		for (int i = 0; i < length; i++) messageSt += (char)payload[i];
+		LOG("websocket got:" + messageSt);
+		Serial.println(messageSt);
+		//delete[] messChar;
+		/*if (type == WStype_TEXT)
+		{
+			if (payload[0] == '2') webSocket.broadcastTXT("F1_OFF");
+			else if (payload[0] == '3') webSocket.broadcastTXT("F1_ON");
+			else if (payload[0] == '4') webSocket.broadcastTXT("F2_OFF");
+			else if (payload[0] == '5') webSocket.broadcastTXT("F2_ON");
+			else LOG("Socket message isn't recognised");
 
+		}
+
+		else
+		{
+			Serial.print("WStype = ");   Serial.println(type);
+			Serial.print("WS payload = ");
+			for (int i = 0; i < length; i++) { Serial.print((char)payload[i]); }
+			Serial.println();
+
+		}*/
+	}
+}
     
 void Send_Request_To_Server() {
 	unsigned long tNow;
@@ -72,141 +196,63 @@ void Send_Request_To_Server() {
 	if (TCP_Client.connected()) {
 		TCP_Client.setNoDelay(1);
 		String dataToSend = "Device:" + Devicename + ";" + "time:" + String(tNow) + ";" +
-			"signal:" + String(WiFi.RSSI()) + ";" + "temp:" + getData[0][1] + ";"
-			+ "humid:" + getData[0][2] + ";" + "humidAv:" + getData[0][3] + ";" +
-			"status:" + getData[0][4] + ";" ;
+			"signal:" + String(WiFi.RSSI()) + ";" + "temp:" + dataUNO.temp + ";"
+			+ "humid:" + dataUNO.humid + ";" + "humidAv:" + dataUNO.humidAwer + ";" +
+			"status:" + String(dataUNO.state,HEX) + ";" ;
 		TCP_Client.println(dataToSend);
-		//Serial.print("- data stream: ");	Serial.println(dataToSend);//Send sensor data
-		sendRequestToServer.period = 30000;
-
-	}
-	
+		LOG(dataToSend)
+	}	
 }
 void Send_Log_To_Server() {
-
 	if (TCP_Client.connected()) {
 		TCP_Client.setNoDelay(1);
-		TCP_Client.println("Device:" + Devicename + ";get:2;" + String(millis()) + "," +
-			String(WiFi.RSSI()) + "," + getData[0][1] + ","
-			+ getData[0][2] + "," +  getData[0][3] + "," + getData[0][4] + ";");
+		String strToSend = "Device:" + Devicename + ";get:2;" + String(millis()) + "," +
+			String(WiFi.RSSI()) + "," + dataUNO.temp + ","
+			+ dataUNO.humid + "," + dataUNO.humidAwer + "," + String(dataUNO.state, HEX) + ";";
+		TCP_Client.println(strToSend);
+		webSocket.broadcastTXT(strToSend);
+		LOG(strToSend)
 
 	}
-
-}
-//====================================================================================
-
-void Check_WiFi_and_Connect() {
-			//Serial.println("Not Connected...trying to connect...");
-		yield();
-		WiFi.mode(WIFI_STA);                                // station (Client) Only - to avoid broadcasting an SSID ??
-		//WiFi.begin(ssid, password,0);                    // the SSID that we want to connect to
-		WiFi.begin(ssid, password);
-		Serial.println("ssid: " + String(ssid) + "  password:" + String(password));
-	}
-
-
-		/*for (int i = 0; i < 10; ++i) {
-			if (WiFi.status() != WL_CONNECTED) {
-				//delay(500);
-				//Serial.print(".");
-			}*/
-
-void Print_connection_status(){
-
-				// Printing IP Address --------------------------------------------------
-			/*	Serial.println("Connected To      : " + String(WiFi.SSID()));
-				Serial.println("Signal Strenght   : " + String(WiFi.RSSI()) + " dBm");
-				Serial.print("Server IP Address : ");
-				Serial.println(TCP_Server);
-				Serial.print("Device IP Address : ");
-				Serial.println(WiFi.localIP());
-
-				// conecting as a client -------------------------------------
-				*/
-				Tell_Server_we_are_there();
-				
-				
-		/*delay(1000);
-		yield();
-		if (WiFi.status() == WL_CONNECTED) {
-			Serial.println("ssid: " + String(ssid) + "  password:" + String(password));
-			Tell_Server_we_are_there();
-		}*/
-	
 }
 
-//====================================================================================
-
-void Tell_Server_we_are_there() {
-	// first make sure you got disconnected
-	//TCP_Client.stop();
-
-	// if sucessfully connected send connection message
-	if (TCP_Client.connect(TCP_Server, TCPPort)) {
-		//Serial.println("<" + Devicename + "-CONNECTED>");
-		TCP_Client.println("<" + Devicename + "-CONNECTED>");
-		TCP_Client.println(fieldsInLogMes);
-	}
-	TCP_Client.setNoDelay(1);                                     // allow fast communication?
-}
-
-//====================================================================================
 
 void loop() {
 
-	//WiFiClient::setLocalPortStart(2391);
-	if (WiFi.status() != WL_CONNECTED && ((millis() - checkconnection) > 10000)) {
-		connectionEstablished = false;
-		checkconnection=millis();
-	}
-	if (!connectionEstablished&&((millis()- timeConnectioTried)>10000)) {
-		yield();
-		if (WiFi.status() != WL_CONNECTED){
-			if (!connectionTried)
-			{
-				Check_WiFi_and_Connect();
-				connectionTried = true;
-				timeAttemptToConnect = millis();
-			}
-		}
-		else {
-			Print_connection_status();
-			connectionTried = false;
-			connectionEstablished = true;
-		}
-		timeConnectioTried = millis();
-	}
-
-	if (!connectionEstablished && ((millis() - timeAttemptToConnect) > 60000))
-	{
-		connectionTried = false;
-		TCP_Client.stop();                                  //Make Sure Everything Is Reset
-		WiFi.disconnect();
-		timeAttemptToConnect = millis();
-	}
 	
-
-	if (millis() - lastUpdateTime >= postingInterval)
-	{
-		readDataSerial(row);
-		if (row > 0) {
-			Send_Log_To_Server(); row = 0; //memset(getData, 0, sizeof(getData)); }
+	if (task_checkClient.check()) {
+		if (TCP_SERVER.hasClient()) {
+			WiFiClient Temp = TCP_SERVER.available();
+			IPAddress IP = Temp.remoteIP();
+			LOG("Conneted client ");
+			LOG(IP);
+			task_checkClient.ignor = true;
 		}
 	}
-	yield();
 	//while (tNow2 > (millis() - 50)) {
 	if (TCP_Client.connected()) {
 
 		if (TCP_Client.available() > 0) {                     // Check For Reply
 			String line = TCP_Client.readStringUntil('\r');     // if '\r' is found
 			//Serial.print("received: ");                         // print the content
+			if (line.indexOf("humid:") != -1) task_askHumidFromServer.period = 60000;
 			Serial.println(line);
 
 		}
 	}
+	else if (task_checkConnectionToServer.check()) setupClient();
+	if (Serial.available()) dataUNO.parseInput(Serial.readStringUntil('\r'));
 	if (sendRequestToServer.check()) Send_Request_To_Server();
+	if (sendLogToSrver.check()) Send_Log_To_Server();
+	if (task_askHumidFromServer.check()) {
+		if(!bitRead(dataUNO.state,7)) 
+			if (TCP_Client.connected()) TCP_Client.println("Device:" + Devicename + ";get:5;");
+	}
+	server.handleClient();                    // Listen for HTTP requests from clients
+	webSocket.loop();
+	yield();
 }
-bool get_field_value(String Message, String field, unsigned long* value, int* index) {
+/*bool get_field_value(String Message, String field, unsigned long* value, int* index) {
 	int fieldBegin = Message.indexOf(field) + field.length();
 	int check_field = Message.indexOf(field);
 	int ii = 0;
@@ -234,39 +280,50 @@ bool get_field_value(String Message, String field, unsigned long* value, int* in
 	}
 	else return false;
 	return true;
-}
-
+}*/
+/*bool get_field_valueString(String Message, String field, String *value) {
+	int check_field = Message.indexOf(field);
+	if (check_field != -1) {
+		int fieldBegin = Message.indexOf(field) + field.length();
+		int filedEnd = Message.indexOf(';', fieldBegin);
+		*value = Message.substring(fieldBegin, filedEnd);
+	}
+	else return false;
+	return true;
+}*/
+/*
 void readDataSerial(int& rowRead)
 { if (Serial.available()){
-  int column; 
+  int column;
   int entry;
   bool start=false;
   char ch;
   rowRead=0;
   int i=0;
   while (Serial.available()){
-    ch = Serial.read();
-	//yield();
-    delay (2);
-    if(ch=='{') {start=true;column=0;entry=0;} 
-    else if (start==true)
-    {
-      if (ch >= '0' && ch <= '9' ) 
-        {
-         getData[rowRead][column][entry]=ch;  entry++;
-        }
-      else if (ch == '-' ) 
-        {
-        getData[rowRead][column][entry]=ch;  entry++;
-         }
-      else if ( ch == '.' ) 
-        {
-       getData[rowRead][column][entry]=ch;  entry++;
-       }
-      else if ( ch==',') {column++;entry=0;}
-      else if (ch=='}') {delay(2);start=false; rowRead++;}
-        }
-    
+	ch = Serial.read();
+	delay (2);
+	if(ch=='{') {start=true;column=0;entry=0;}
+	else if (start==true)
+	{
+	  if (ch >= '0' && ch <= '9' )
+		{
+		 getData[rowRead][column][entry]=ch;  entry++;
+		}
+	  else if (ch == '-' )
+		{
+		getData[rowRead][column][entry]=ch;  entry++;
+		 }
+	  else if ( ch == '.' )
+		{
+	   getData[rowRead][column][entry]=ch;  entry++;
+	   }
+	  else if ( ch==',') {column++;entry=0;}
+	  else if (ch=='}') {delay(2);start=false; rowRead++;}
+		}
+
   }
 }
 }
+
+*/
