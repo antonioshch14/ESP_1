@@ -1,155 +1,329 @@
-// #include<EthernetClient.h> //Uncomment this library to work with ESP8266
-#include<ESP8266WiFi.h> //Uncomment this library to work with ESP8266
-char jsonBuffer[2000] = "["; // Initialize the jsonBuffer to hold data
+//ESP connection to send data to local ESP server
 
-char ssid[] = "Keenetic-4574"; //  Your network SSID (name)
-char pass[] = "Gfmsd45kaxu69$"; // Your network password
-WiFiClient client; // Initialize the WiFi client library
-char server[] = "api.thingspeak.com"; // ThingSpeak Server
+#include <WebSocketsServer.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <ESP8266WebServer.h> 
+#include <FS.h>
+//#define LOG(x) Serial.println(x);
+#define LOG(x);
+#define TCPPort_Web_Client 80
+#define TCPPort_Websocket 81
+#define  TCPPort 2390
+const char* ssid = "DataTransfer";
+const char* password = "BelovSer";//"DataTransfer", "Belov"
+const String  Devicename = "4";//device name for ESP at bathroom
+const char* web_ssid = "Bathroom";
+const char* web_password = "Belov_628";
+IPAddress WebInt(192, 168, 5, 1);
+IPAddress WebGetaway(192, 168, 5, 1);
+IPAddress WebSubnet(255, 255, 255, 0);
+IPAddress     TCP_Server(192, 168, 4, 1);
+IPAddress     TCP_Gateway(192, 168, 4, 1);
+IPAddress     TCP_Subnet(255, 255, 255, 0);
+IPAddress Own(192, 168, 4, 104);
+
+WiFiClient    TCP_Client;
+WebSocketsServer webSocket = WebSocketsServer(TCPPort_Websocket);
+WiFiServer  TCP_SERVER(TCPPort);
+ESP8266WebServer server(TCPPort_Web_Client);
+struct datatFromUno {
+	float temp;
+	float humid;
+	int humidAwer;
+	byte state;
+
+	void parseInput(String data) {
+		LOG(data)
+		webSocket.broadcastTXT(data);
+		int beginning = data.indexOf('{') + 1;
+		int fullEnd = data.indexOf('}');
+		if (beginning != 0 && fullEnd != 0) {
+			int currentEnd = data.indexOf(',', beginning);
+			String field = data.substring(beginning, currentEnd);
+			temp = field.toFloat();
+			beginning = currentEnd + 1;
+			currentEnd = data.indexOf(',', beginning);
+			field = data.substring(beginning, currentEnd);
+			humid = field.toFloat();
+			beginning = currentEnd + 1;
+			currentEnd = data.indexOf(',', beginning);
+			field = data.substring(beginning, currentEnd);
+			humidAwer = field.toInt();
+			beginning = currentEnd + 1;
+			field = data.substring(beginning, fullEnd);
+			state = getByte(field);
+			/*Serial.println(dataUNO.state, BIN);
+			if (bitRead(dataUNO.state, 0))LOG("deodorantActivated=true")
+			else LOG("deodorantActivated=false")
+			if (bitRead(dataUNO.state, 1))LOG("humanBodyDeteckted=true")
+			else LOG("humanBodyDeteckted=false")
+			if (bitRead(dataUNO.state, 2))LOG("buttonStart=true")
+			else LOG("buttonStart=false")
+			if (bitRead(dataUNO.state, 3))LOG("fanWork=true")
+			else LOG("fanWork=false")
+			if (bitRead(dataUNO.state, 4))LOG("webStart=true")
+			else LOG("webStart=false")
+			if (bitRead(dataUNO.state, 5))LOG("humidStart=true")
+			else LOG("humidStart=false")
+			if (bitRead(dataUNO.state, 6))LOG("coutnFull=true")
+			else LOG("coutnFull=false")
+			if (bitRead(dataUNO.state, 7))LOG("light=true")
+			else LOG("light=false")*/
+		}
+	}
+	private:
+	byte nibble(char c)
+	{
+		if (c >= '0' && c <= '9')
+			return c - '0';
+
+		if (c >= 'a' && c <= 'f')
+			return c - 'a' + 10;
+
+		if (c >= 'A' && c <= 'F')
+			return c - 'A' + 10;
+
+		return 0;  // Not a valid hexadecimal character
+	}
+	byte getByte(String data) {
+		byte state = B00000000;
+		if (data.length() > 1) {
+			state = nibble(data[0]) << 4;
+			state |= nibble(data[1]);
+		}
+		else state |= nibble(data[0]);
+		return state;
+	}
+};
+datatFromUno dataUNO;
+class task {
+public:
+	unsigned long period;
+	bool ignor = false;
+	void reLoop() {
+		taskLoop = millis();
+	};
+	bool check() {
+		if (!ignor) {
+			if (millis() - taskLoop > period) {
+				taskLoop = millis();
+				return true;
+			}
+		}
+		return false;
+	}
+	void StartLoop(unsigned long shift) {
+		taskLoop = millis() + shift;
+	}
+	task(unsigned long t) {
+		period = t;
+	}
+private:
+	unsigned long taskLoop;
+
+};
+task sendRequestToServer(20000);
+task task_checkConnectionToServer(20000);
+task sendLogToSrver(10000);
+task task_checkClient(5000);
+task task_askHumidFromServer(10000);
+String fieldsInLogMes = "Device:4;get:3;Time general,Time device,Signal,Temp,Humid, HumidAver,Status;";
+
+bool connectionTried = false;
+bool  connectionEstablished = false;
+unsigned long timeConnectioTried, timeAttemptToConnect, checkconnection;
 
 /* Collect data once every 15 seconds and post data to ThingSpeak channel once every 2 minutes */
 // unsigned long lastConnectionTime = 0; // Track the last connection time
 unsigned long lastUpdateTime = 0; // Track the last update time
 const unsigned long postingInterval = 5L * 1000L; // s
 // const unsigned long updateInterval = 15L * 1000L; // Update once every 15 seconds
-int const maxRow=10; //for data read from serial
-char getData[maxRow][9][6]; //for data read from serial
-int row; //for data read from serial
-
+#include "web&file_setup.h"
 
 void setup() {
- Serial.begin(9600);
-  // Attempt to connect to WiFi network
-  WiFi.mode(WIFI_STA);
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print("Attempting to connect to SSID: ");
-    Serial.println(ssid);
-    WiFi.begin(ssid, pass); 
-    Serial.print("WiFimode is "); Serial.println (WiFi.getMode());// Connect to WPA/WPA2 network. Change this line if using open or WEP network
-    delay(10000);  // Wait 10 seconds to connect
-  }
-  Serial.println("Connected to wifi");
- printWiFiStatus(); // Print WiFi connection information
+	Serial.begin(9600);
+	Serial.println("Begin");
+	//WiFi.hostname("ESP_Bathroom");      // DHCP Hostname (useful for finding device for static lease)
+	//WiFi.config(Own, TCP_Gateway, TCP_Subnet);
+	WiFi.mode(WIFI_AP_STA);//WIFI_STA WIFI_AP_STA 
+	setupWeb();
+	setupClient();
+	//server.on("/", HTTP_GET, handleFileRead);
+	server.onNotFound([]() {                              // If the client requests any URI
+		if (!handleFileRead(server.uri()))                  // send it if it exists
+			server.send(404, "text/plain", "404: Not Found"); // otherwise, respond with a 404 (Not Found) error
+	});
+	server.begin();                           // Actually start the server
+	webSocket.begin();                          // start the websocket server
+	startSPIFFS();
+	webSocket.onEvent(webSocketEvent);          // if there's an incomming websocket message, go to function 'webSocketEvent'
 }
-void loop() {
-    if (millis() - lastUpdateTime >=  postingInterval) 
-    { 
-    readDataSerial(row);
-    if (row>0) {updatesJson(jsonBuffer,row);row=0; memset(getData,0,sizeof(getData));}
-    }
-  }
+void webSocketEvent(byte num, WStype_t type, uint8_t * payload, size_t length)
+{
+	if (length) {
+		//char message[16];
+		//message[0] = (char)payload[0];
+		String messageSt;
+		for (int i = 0; i < length; i++) messageSt += (char)payload[i];
+		LOG("websocket got:" + messageSt);
+		Serial.println(messageSt);
+		//delete[] messChar;
+		/*if (type == WStype_TEXT)
+		{
+			if (payload[0] == '2') webSocket.broadcastTXT("F1_OFF");
+			else if (payload[0] == '3') webSocket.broadcastTXT("F1_ON");
+			else if (payload[0] == '4') webSocket.broadcastTXT("F2_OFF");
+			else if (payload[0] == '5') webSocket.broadcastTXT("F2_ON");
+			else LOG("Socket message isn't recognised");
+
+		}
+
+		else
+		{
+			Serial.print("WStype = ");   Serial.println(type);
+			Serial.print("WS payload = ");
+			for (int i = 0; i < length; i++) { Serial.print((char)payload[i]); }
+			Serial.println();
+
+		}*/
+	}
+}
     
-void printWiFiStatus() {
-  // Print the SSID of the network you're attached to:
-   
-  Serial.print("SSID: ");
-  Serial.println(WiFi.SSID());
+void Send_Request_To_Server() {
+	unsigned long tNow;
+	tNow = millis();
+	if (TCP_Client.connected()) {
+		TCP_Client.setNoDelay(1);
+		String dataToSend = "Device:" + Devicename + ";" + "time:" + String(tNow) + ";" +
+			"signal:" + String(WiFi.RSSI()) + ";" + "temp:" + dataUNO.temp + ";"
+			+ "humid:" + dataUNO.humid + ";" + "humidAv:" + dataUNO.humidAwer + ";" +
+			"status:" + String(dataUNO.state,HEX) + ";" ;
+		TCP_Client.println(dataToSend);
+		LOG(dataToSend)
+	}	
+}
+void Send_Log_To_Server() {
+	if (TCP_Client.connected()) {
+		TCP_Client.setNoDelay(1);
+		String strToSend = "Device:" + Devicename + ";get:2;" + String(millis()) + "," +
+			String(WiFi.RSSI()) + "," + dataUNO.temp + ","
+			+ dataUNO.humid + "," + dataUNO.humidAwer + "," + String(dataUNO.state, HEX) + ";";
+		TCP_Client.println(strToSend);
+		webSocket.broadcastTXT(strToSend);
+		LOG(strToSend)
 
-  // Print your device IP address:
-  IPAddress ip = WiFi.localIP();
-  Serial.print("IP Address: ");
-  Serial.println(ip);
- long rssi = WiFi.RSSI();
- Serial.print("signal strength (RSSI):");
- Serial.print(rssi);
- Serial.println(" dBm");
-  Serial.print("WiFimode is "); Serial.println (WiFi.getMode());
+	}
 }
 
-void updatesJson(char* jsonBuffer,int row){
-  //   "[{\"delta_t\":0,\"field1\":-70},{\"delta_t\":3,\"field1\":-66}]"
-  int i; int ii;
-  char field[8][2]={"1","2","3","4","5","6","7","8"};
-  for (i=0;i<row;i++)
-  {strcat(jsonBuffer,"{\"delta_t\":");
-   strcat(jsonBuffer,getData[i][0]);
-   strcat(jsonBuffer,",");
-   for (ii=1;ii<5;ii++)
-      {
-       strcat(jsonBuffer, "\"field");
-       strcat(jsonBuffer,field[ii-1]);
-       strcat(jsonBuffer,"\":");
-       strcat(jsonBuffer,getData[i][ii]);
-      if (ii!=4) strcat(jsonBuffer,",");
-      }
-       strcat(jsonBuffer,"},");
-       // If posting interval time has reached 2 minutes, update the ThingSpeak channel with your data
-  }
-        size_t len = strlen(jsonBuffer);
-        jsonBuffer[len-1] = ']';
-        httpRequest(jsonBuffer);
-  
-  lastUpdateTime = millis(); // Update the last update time
-}
 
-// Updates the ThingSpeakchannel with data
-void httpRequest(char* jsonBuffer) {
-  /* JSON format for data buffer in the API
-   *  This examples uses the relative timestamp as it uses the "delta_t". You can also provide the absolute timestamp using the "created_at" parameter
-   *  instead of "delta_t".
-   *   "{\"write_api_key\":\"YOUR-CHANNEL-WRITEAPIKEY\",\"updates\":[{\"delta_t\":0,\"field1\":-60},{\"delta_t\":15,\"field1\":200},{\"delta_t\":15,\"field1\":-66}]
-   */
-  // Format the data buffer as noted above
-  char data[2000] = "{\"write_api_key\":\"SR7I86O66JT1ZIQQ\",\"updates\":"; // Replace YOUR-CHANNEL-WRITEAPIKEY with your ThingSpeak channel write API key
-  strcat(data,jsonBuffer);
-  strcat(data,"}");
-  // Close any connection before sending a new request
-  client.stop();
-  String data_length = String(strlen(data)+1); //Compute the data buffer length
-  // Serial.println(data);
-  // POST data to ThingSpeak
-  if (client.connect(server, 80)) {
-    client.println("POST /channels/692244/bulk_update.json HTTP/1.1"); // Replace YOUR-CHANNEL-ID with your ThingSpeak channel ID
-    client.println("Host: api.thingspeak.com");
-    client.println("User-Agent: mw.doc.bulk-update (Arduino ESP8266)");
-    client.println("Connection: close");
-    client.println("Content-Type: application/json");
-    client.println("Content-Length: "+data_length);
-    client.println();
-    client.println(data);
-  }
-  else {
-    Serial.println("Failure: Failed to connect to ThingSpeak");
-  }
-  delay(250); //Wait to receive the response
-  client.parseFloat();
-  String resp = String(client.parseInt());
- Serial.print("R:"+resp); // Print the response code. 202 indicates that the server has accepted the response
-  // Serial.println(data);
-  jsonBuffer[0] = '['; //Reinitialize the jsonBuffer for next batch of data
-  jsonBuffer[1] = '\0';
-  //lastConnectionTime = millis(); //Update the last conenction time
+void loop() {
+
+	
+	if (task_checkClient.check()) {
+		if (TCP_SERVER.hasClient()) {
+			WiFiClient Temp = TCP_SERVER.available();
+			IPAddress IP = Temp.remoteIP();
+			LOG("Conneted client ");
+			LOG(IP);
+			task_checkClient.ignor = true;
+		}
+	}
+	//while (tNow2 > (millis() - 50)) {
+	if (TCP_Client.connected()) {
+
+		if (TCP_Client.available() > 0) {                     // Check For Reply
+			String line = TCP_Client.readStringUntil('\r');     // if '\r' is found
+			//Serial.print("received: ");                         // print the content
+			if (line.indexOf("humid:") != -1) task_askHumidFromServer.period = 60000;
+			Serial.println(line);
+
+		}
+	}
+	else if (task_checkConnectionToServer.check()) setupClient();
+	if (Serial.available()) dataUNO.parseInput(Serial.readStringUntil('\r'));
+	if (sendRequestToServer.check()) Send_Request_To_Server();
+	if (sendLogToSrver.check()) Send_Log_To_Server();
+	if (task_askHumidFromServer.check()) {
+		if(!bitRead(dataUNO.state,7)) 
+			if (TCP_Client.connected()) TCP_Client.println("Device:" + Devicename + ";get:5;");
+	}
+	server.handleClient();                    // Listen for HTTP requests from clients
+	webSocket.loop();
+	yield();
 }
+/*bool get_field_value(String Message, String field, unsigned long* value, int* index) {
+	int fieldBegin = Message.indexOf(field) + field.length();
+	int check_field = Message.indexOf(field);
+	int ii = 0;
+	*value = 0;
+	*index = 0;
+	bool indFloat = false;
+	if (check_field != -1) {
+		int filedEnd = Message.indexOf(';', fieldBegin);
+		if (filedEnd == -1) { return false; }
+		int i = 1;
+		char ch = Message[filedEnd - i];
+		while (ch != ' ' && ch != ':') {
+			if (isDigit(ch)) {
+				int val = ch - 48;
+				if (!indFloat)ii = i - 1;
+				else ii = i - 2;
+				*value = *value + ((val * pow(10, ii)));
+			}
+			else if (ch == '.') { *index = i - 1; indFloat = true; }
+			i++;
+			if (i > (filedEnd - fieldBegin + 1) || i > 10)break;
+			ch = Message[filedEnd - i];
+		}
+
+	}
+	else return false;
+	return true;
+}*/
+/*bool get_field_valueString(String Message, String field, String *value) {
+	int check_field = Message.indexOf(field);
+	if (check_field != -1) {
+		int fieldBegin = Message.indexOf(field) + field.length();
+		int filedEnd = Message.indexOf(';', fieldBegin);
+		*value = Message.substring(fieldBegin, filedEnd);
+	}
+	else return false;
+	return true;
+}*/
+/*
 void readDataSerial(int& rowRead)
 { if (Serial.available()){
-  int column; 
+  int column;
   int entry;
   bool start=false;
   char ch;
   rowRead=0;
   int i=0;
   while (Serial.available()){
-    ch = Serial.read();
-    delay (2);
-    if(ch=='{') {start=true;column=0;entry=0;} 
-    else if (start==true)
-    {
-      if (ch >= '0' && ch <= '9' ) 
-        {
-         getData[rowRead][column][entry]=ch;  entry++;
-        }
-      else if (ch == '-' ) 
-        {
-        getData[rowRead][column][entry]=ch;  entry++;
-         }
-      else if ( ch == '.' ) 
-        {
-       getData[rowRead][column][entry]=ch;  entry++;
-       }
-      else if ( ch==',') {column++;entry=0;}
-      else if (ch=='}') {delay(2);start=false; rowRead++;}
-        }
-    
+	ch = Serial.read();
+	delay (2);
+	if(ch=='{') {start=true;column=0;entry=0;}
+	else if (start==true)
+	{
+	  if (ch >= '0' && ch <= '9' )
+		{
+		 getData[rowRead][column][entry]=ch;  entry++;
+		}
+	  else if (ch == '-' )
+		{
+		getData[rowRead][column][entry]=ch;  entry++;
+		 }
+	  else if ( ch == '.' )
+		{
+	   getData[rowRead][column][entry]=ch;  entry++;
+	   }
+	  else if ( ch==',') {column++;entry=0;}
+	  else if (ch=='}') {delay(2);start=false; rowRead++;}
+		}
+
   }
 }
 }
+
+*/
