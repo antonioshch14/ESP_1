@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang=fr-FR>
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <meta charset='utf-8'>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, Helvetica, Sans-Serif;
+            Color: #000088;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bathroom Fan</h1>
+    <h3>Socket</h3>
+
+    <ul>
+        <li>
+            FAN
+            <button id="fan"> Switch ON </button>
+            <a id="fanState"> OFF</a>
+
+        </li>
+        </br>
+        <li>
+            Air Vick
+            <button id="airVick"> Push </button>
+
+        </li>
+        </br>
+        <li>
+            LIGHT
+            <button id="light">Switch ON</button>
+            <a id="lightState"> OFF</a>
+
+        </li>
+        <p>Recieved data = <span id='rd'>---</span> </p>
+        <br>
+    </ul>
+    <h3>GET POST</h3>
+     <ul>
+        <input type="text" id="fanTime" />
+        <input type="button" id="fanTimeSubmit" value="submit" />
+    </ul>
+   
+</body>
+<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+<ul id="messages"></ul>
+<script src="Script1.js"></script>
+
+</html>
